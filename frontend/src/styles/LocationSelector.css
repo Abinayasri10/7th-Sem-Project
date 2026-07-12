@@ -1,0 +1,85 @@
+/* Location Selector CSS */
+.location-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.coords-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.coord-input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.coord-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.coord-input {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--text-main);
+  background-color: #ffffff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.coord-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.gps-btn {
+  background-color: #f3f4f6;
+  color: var(--text-main);
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.gps-btn:hover {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+.gps-btn.active {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--primary);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.gps-status {
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.gps-status.success {
+  color: var(--primary);
+}
+
+.gps-status.error {
+  color: #ef4444;
+}

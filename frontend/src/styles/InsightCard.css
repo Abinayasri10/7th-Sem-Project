@@ -1,0 +1,58 @@
+/* Insight Card CSS */
+.insight-card {
+  background-color: #f0fdf4;
+  border-left: 4px solid var(--primary);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.insight-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.insight-card-badge {
+  font-family: var(--font-heading);
+  font-size: 0.725rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--primary);
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.insight-card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary-hover);
+}
+
+.insight-card-text {
+  font-size: 0.925rem;
+  color: #065f46;
+  line-height: 1.5;
+}
+
+/* Alternate theme for Water Stress NDWI */
+.insight-card.theme-ndwi {
+  background-color: #eff6ff;
+  border-left-color: #3b82f6;
+}
+
+.insight-card.theme-ndwi .insight-card-badge {
+  background-color: #3b82f6;
+}
+
+.insight-card.theme-ndwi .insight-card-title {
+  color: #1e40af;
+}
+
+.insight-card.theme-ndwi .insight-card-text {
+  color: #1e3a8a;
+}

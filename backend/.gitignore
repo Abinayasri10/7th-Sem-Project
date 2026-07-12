@@ -1,0 +1,9 @@
+.env
+gee_credentials.json
+*.keras
+__pycache__/
+venv/
+node_modules/
+*.pyc
+*.pyo
+.DS_Store
