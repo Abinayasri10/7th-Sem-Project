@@ -41,10 +41,10 @@ function SatelliteMap({ latitude, longitude, location, tileUrl, indexType }) {
       >
         <ChangeView center={center} />
         
-        {/* OpenStreetMap Base Layer */}
+        {/* Esri World Imagery Satellite Base Layer */}
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         />
         
         {/* Google Earth Engine NDVI/NDWI Tile Overlay */}
@@ -52,6 +52,7 @@ function SatelliteMap({ latitude, longitude, location, tileUrl, indexType }) {
           <TileLayer
             url={tileUrl}
             attribution="&copy; Google Earth Engine / Sentinel-2 Harmonized"
+            opacity={0.7}
           />
         )}
         

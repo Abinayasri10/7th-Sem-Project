@@ -38,21 +38,6 @@
   margin-bottom: 1.5rem;
   line-height: 1.4;
 }
-
-.section-divider {
-  border: 0;
-  height: 1px;
-  background-color: var(--border);
-  margin: 2.5rem 0;
-}
-
-/* Level Split Grid */
-.level-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 1.5rem;
-}
-
 /* Error message alerts */
 .api-error-alert {
   background-color: #fef2f2;

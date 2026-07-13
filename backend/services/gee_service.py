@@ -26,7 +26,7 @@ def initialize_gee(key_path):
             return False, "Service account JSON is missing 'client_email'."
             
         credentials = ee.ServiceAccountCredentials(email, key_path)
-        ee.Initialize(credentials, project=project)
+        ee.Initialize(credentials)
         _gee_initialized = True
         logger.info("Google Earth Engine initialized successfully.")
         return True, None

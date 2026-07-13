@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/LocationSelector.css'
 
 function LocationSelector({
@@ -9,6 +9,9 @@ function LocationSelector({
   gpsStatus,
   setGpsStatus
 }) {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchLoading, setSearchLoading] = useState(false)
+
   const handleGPSDetect = () => {
     if (!navigator.geolocation) {
       setGpsStatus({ success: false, message: 'Geolocation is not supported by your browser.' });
@@ -41,8 +44,59 @@ function LocationSelector({
     );
   };
 
+  const handleSearchPlace = async (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+
+    setSearchLoading(true);
+    setGpsStatus({ success: null, message: 'Searching place...' });
+
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery)}&limit=1`,
+        {
+          headers: {
+            'User-Agent': 'smart_agri_search_app'
+          }
+        }
+      );
+      const data = await response.json();
+      if (data && data.length > 0) {
+        const lat = parseFloat(parseFloat(data[0].lat).toFixed(6));
+        const lon = parseFloat(parseFloat(data[0].lon).toFixed(6));
+        setLatitude(lat);
+        setLongitude(lon);
+        setGpsStatus({ success: true, message: `Found: ${data[0].display_name}` });
+      } else {
+        setGpsStatus({ success: false, message: 'Location not found. Try a different place name.' });
+      }
+    } catch (err) {
+      setGpsStatus({ success: false, message: 'Search failed. Please check network connection.' });
+    } finally {
+      setSearchLoading(false);
+    }
+  };
+
   return (
     <div className="location-selector" id="location-fields-wrapper">
+      <form onSubmit={handleSearchPlace} className="search-place-row">
+        <input 
+          type="text" 
+          placeholder="🔍 Search place name (e.g. Chennai)"
+          className="search-place-input"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          disabled={searchLoading}
+        />
+        <button 
+          type="submit" 
+          className="search-place-btn" 
+          disabled={searchLoading || !searchQuery.trim()}
+        >
+          {searchLoading ? '...' : 'Search'}
+        </button>
+      </form>
+
       <div className="coords-row">
         <div className="coord-input-group">
           <label className="coord-label" htmlFor="input-latitude">Latitude</label>
@@ -98,5 +152,6 @@ function LocationSelector({
     </div>
   )
 }
+
 
 export default LocationSelector

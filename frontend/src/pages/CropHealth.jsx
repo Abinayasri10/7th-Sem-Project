@@ -3,10 +3,7 @@ import Sidebar from '../components/Sidebar'
 import ScoreCard from '../components/ScoreCard'
 import InsightCard from '../components/InsightCard'
 import SatelliteMap from '../components/SatelliteMap'
-import DiseaseUpload from '../components/DiseaseUpload'
-import DiseaseResult from '../components/DiseaseResult'
 import { analyzeCropHealth } from '../services/cropHealthApi'
-import { predictDisease } from '../services/diseaseApi'
 import '../styles/CropHealth.css'
 
 function CropHealth() {
@@ -20,13 +17,6 @@ function CropHealth() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [gpsStatus, setGpsStatus] = useState({ success: null, message: '' })
-
-  // Disease classification state
-  const [selectedImage, setSelectedImage] = useState(null)
-  const [imagePreview, setImagePreview] = useState(null)
-  const [diseaseResult, setDiseaseResult] = useState(null)
-  const [diseaseLoading, setDiseaseLoading] = useState(false)
-  const [diseaseError, setDiseaseError] = useState(null)
 
   const handleSatelliteAnalyze = async () => {
     if (!latitude || !longitude || !startDate || !endDate) return
@@ -53,27 +43,6 @@ function CropHealth() {
       setError(err)
     } finally {
       setLoading(false)
-    }
-  }
-
-  const handleDiseasePredict = async () => {
-    if (!selectedImage) return
-
-    setDiseaseLoading(true)
-    setDiseaseError(null)
-    setDiseaseResult(null)
-
-    try {
-      const res = await predictDisease(selectedImage)
-      if (res.success) {
-        setDiseaseResult(res.data)
-      } else {
-        setDiseaseError(res.error || { code: 'PREDICTION_FAILED', message: 'Analysis failed.' })
-      }
-    } catch (err) {
-      setDiseaseError(err)
-    } finally {
-      setDiseaseLoading(false)
     }
   }
 
@@ -136,44 +105,10 @@ function CropHealth() {
             indexType={analysisResult ? analysisResult.indexType : indexType}
           />
         </section>
-
-        <hr className="section-divider" />
-
-        {/* SECTION 2: DEEP LEARNING DISEASE ANALYSIS */}
-        <section className="section-card" id="ai-disease-detection-section">
-          <h1 className="section-title">🔬 AI Crop Leaf Disease Detection</h1>
-          <p className="section-subtitle">
-            Deep learning leaf analyzer powered by MobileNetV2. Upload a crop leaf photo to identify crop health issues, 
-            diseases, or infections with diagnostic confidence rates.
-          </p>
-
-          {diseaseError && (
-            <div className="api-error-alert" id="disease-error">
-              <div className="error-title">Disease Detection Failed ({diseaseError.code || 'UNKNOWN'})</div>
-              <div className="error-message">{diseaseError.message || 'An unexpected error occurred.'}</div>
-            </div>
-          )}
-
-          <div className="level-grid">
-            <div className="grid-upload-area">
-              <DiseaseUpload 
-                selectedImage={selectedImage}
-                setSelectedImage={setSelectedImage}
-                imagePreview={imagePreview}
-                setImagePreview={setImagePreview}
-                onAnalyze={handleDiseasePredict}
-                loading={diseaseLoading}
-              />
-            </div>
-            
-            <div className="grid-result-area">
-              <DiseaseResult result={diseaseResult} />
-            </div>
-          </div>
-        </section>
       </main>
     </div>
   )
 }
 
 export default CropHealth
+

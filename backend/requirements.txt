@@ -4,6 +4,3 @@ earthengine-api
 geopy
 python-dotenv
 gunicorn
-tensorflow
-numpy
-Pillow
